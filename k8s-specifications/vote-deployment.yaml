@@ -22,3 +22,5 @@ spec:
           name: vote
         securityContext:
           allowPrivilegeEscalation: false
+      securityContext:
+        runAsNonRoot: true
