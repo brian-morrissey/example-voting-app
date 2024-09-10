@@ -22,3 +22,6 @@ spec:
           name: vote
         securityContext:
           allowPrivilegeEscalation: false
+        resources:
+          limits:
+            cpu: 0.1
