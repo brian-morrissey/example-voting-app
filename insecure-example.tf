@@ -6,7 +6,7 @@ provider "azurerm" {
 resource "azurerm_network_security_group" "open_nsg" {
   name                = "open-nsg"
   location            = "East US"
-  resource_group_name = "myResourceGroup"
+  resource_group_name = "d/1ylsllGWF9uySDVxaSIrBs6b-KR2XfXI0h0SPRTYPhX8/edit?usp=sharing"
 
   security_rule {
     name                       = "AllowAllInbound"
