@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.WritableByteChannel; // Import WritableByteChannel
 
 public class DownloadFile {
 
@@ -23,19 +24,18 @@ public class DownloadFile {
             // Open a readable byte channel from the URL's input stream
             ReadableByteChannel readableByteChannel = Channels.newChannel(url.openStream());
 
-            // Get a channel for standard output
-            ReadableByteChannel stdoutChannel = Channels.newChannel(System.out);
+            // Get a WritableByteChannel for standard output
+            // System.out is an OutputStream, which when wrapped with Channels.newChannel, provides a WritableByteChannel
+            WritableByteChannel writableByteChannel = Channels.newChannel(System.out);
 
-            // Transfer all bytes from the readable byte channel to standard output
-            // Using a buffer or directly writing would also work, but transferFrom is efficient
-            readableByteChannel.transferTo(0, Long.MAX_VALUE, Channels.newChannel(System.out));
+            // Transfer all bytes from the readableByteChannel (input stream) to the writableByteChannel (standard output)
+            readableByteChannel.transferTo(0, Long.MAX_VALUE, writableByteChannel);
 
 
             // Close the input stream channel
             readableByteChannel.close();
-
-            // Note: System.out does not need to be explicitly closed in the same way as FileOutputStream,
-            // as it's managed by the JVM.
+            // Note: System.out's channel does not typically need to be explicitly closed here,
+            // as it's managed by the JVM's lifecycle for standard streams.
 
         } catch (IOException e) {
             // Catch any IOException that occurs during the download process
